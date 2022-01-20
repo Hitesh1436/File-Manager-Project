@@ -114,7 +114,7 @@ function organizeFn(dirpath) {      // folder tk phuch gye but ab edge cases dkh
               if(isFile==true){
                      let fileCategory = getCategory(childNames[i]);
                      console.log(childNames[i]+ "  belongs to  " + fileCategory)  // kya hum particular extensions ko match krpye hain vo dkh rhe hain isse , jse hi run hoga toh getCategory function ko call lgega vo type return krega and vo fileCategory mn lakr dega and  usse console log krenege
-    
+              // we took out category type of different files
                      sendFiles(childAddress , dest , fileCategory)  // yeh fileCategory ko call lgyga 
               }
        }
@@ -147,7 +147,7 @@ function organizeFn(dirpath) {      // folder tk phuch gye but ab edge cases dkh
     
     
     function sendFiles(srcFilePath , dest , fileCategory){  // hume source path chaiyee dest path khn bhjni h file uske liye and konsi category ka h vo bhi chaiye
-           let catPath = path.join(dest, fileCategory)   
+           let catPath = path.join(dest, fileCategory)   // here we are making file categories path
     
     
            if(fs.existsSync(catPath)==false){ // checking for category folder path 
