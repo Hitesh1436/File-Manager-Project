@@ -40,8 +40,8 @@ let types = {   //  yeh array bnya jo ext ke hisab se key btarha h konsi key ki 
 let command = inputArr[0];
 
 switch (command) {
-    case "tree":
-        console.log("Tree Implemented");
+    case "tree":   
+    treeFn(inputArr[1]);
         break;
     case "organize":
         organizeFn(inputArr[1]);   //inputArr ke 1st index pr path bhjdenge
@@ -166,3 +166,45 @@ function organizeFn(dirpath) {      // folder tk phuch gye but ab edge cases dkh
     
            console.log(fileName + "is copied to" + fileCategory)
     }
+
+
+
+    // Tree method implement krenge ab 
+
+    function treeFn(dirpath){
+      if(dirpath==undefined){
+        console.log('Please Enter a Valid Command ')
+      }
+
+      else{
+        let doesExist = fs.existsSync(dirpath);
+        if(doesExist==true){
+          treeHelper(dirpath , " ")
+        }
+      }
+}
+
+function treeHelper(targetPath , indent){   // indent denge space ke liye 
+     let isFile = fs.lstatSync(targetPath).isFile()   // check krrhe hain file konsi h folder konsa h
+
+          if(isFile== true){
+            let fileName = path.basename(targetPath)
+            console.log(indent + "├──" +fileName )  //"├──"  isse khde hain Include 
+
+          }
+          else{
+           let dirname = path.basename(targetPath);
+           console.log(indent + "└──" + dirname)    // "└──" yeh down dikhta h 
+           
+          let  children = fs.readdirSync(targetPath)  // sare children nikale humne 
+          // console.log(children)
+
+           for(let i=0;i<children.length;i++){
+             let childPath = path.join(targetPath , children[i]);
+
+            //  console.log(childPath)
+            treeHelper(childPath , indent + '\t')
+           }
+            
+          }
+}
